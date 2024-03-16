@@ -18,43 +18,46 @@ import model.service.PessoaService;
 @Path("/pessoa")
 
 public class PessoaController {
-	
-private PessoaService service = new PessoaService();
-	
+
+	private PessoaService service = new PessoaService();
+
+	@GET
+	@Path("/cpfExiste/{cpf}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean cpfExiste(@PathParam("cpf") String cpf) throws PessoaException {
+		return service.cpfExiste(cpf);
+	}
+
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pessoa salvar(Pessoa novoPessoa) throws PessoaException {
-		return service.salvar(novoPessoa) ;
+		return service.salvar(novoPessoa);
 	}
-	
-	/*@PUT
-	@Path("/")
+
+	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean atualizar(Pessoa PessoaEditado){
-		 return service.atualizar(PessoaEditado);
-	}*/
-	
+	public boolean alterar(Pessoa PessoaEditado) throws PessoaException {
+		return service.alterar(PessoaEditado);
+	}
+
 	@DELETE
 	@Path("/{id}")
-	public boolean excluir(@PathParam("id") int id){
-		 return service.excluir(id);
+	public boolean excluir(@PathParam("id") int id) {
+		return service.excluir(id);
 	}
-	
-	/*@GET
-	@Path("/{id}")
-	public Pessoa consultarPorId(@PathParam("id") int id){
-		 return service.consultarPorId(id);
-	}*/
-	
+
 	@GET
-	@Path("/todas")
-	public List<Pessoa> consultarTodas(){
-		 return service.consultarTodas();
+	@Path("/{id}")
+	public Pessoa consultarPorId(@PathParam("id") int id) {
+		return service.consultarPorId(id);
 	}
-	
-	
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Pessoa> consultarTodas() {
+		return service.consultarTodas();
+	}
 
 }

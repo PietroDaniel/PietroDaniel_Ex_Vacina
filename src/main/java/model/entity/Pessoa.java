@@ -1,37 +1,40 @@
 package model.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Pessoa {
 	
-	private int idPessoa;
+	private int id;
 	private String nome;
-	private String sexo;
 	private String cpf;
+	private int tipo;
+	private String sexo;
 	private LocalDate dataNascimento;
-	private String categoria;
+	private List<Vacinacao> vacinacoes;
 	
-	
-	public Pessoa(int idPessoa, String nome, String sexo, String cpf, LocalDate dataNascimento, String categoria) {
+	public Pessoa(int id, String nome, String cpf, int tipo, String sexo, LocalDate dataNascimento,
+			List<Vacinacao> vacinacoes) {
 		super();
-		this.idPessoa = idPessoa;
+		this.id = id;
 		this.nome = nome;
-		this.sexo = sexo;
 		this.cpf = cpf;
+		this.tipo = tipo;
+		this.sexo = sexo;
 		this.dataNascimento = dataNascimento;
-		this.categoria = categoria;
+		this.vacinacoes = vacinacoes;
 	}
-	
+
 	public Pessoa() {
 		super();
 	}
 
-	public int getIdPessoa() {
-		return idPessoa;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdPessoa(int idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -42,20 +45,28 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
 	public String getCpf() {
 		return cpf;
 	}
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public int getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public LocalDate getDataNascimento() {
@@ -66,12 +77,12 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public List<Vacinacao> getVacinacoes() {
+		return vacinacoes;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setVacinacoes(List<Vacinacao> vacinacoes) {
+		this.vacinacoes = vacinacoes;
 	}
 	
 	
