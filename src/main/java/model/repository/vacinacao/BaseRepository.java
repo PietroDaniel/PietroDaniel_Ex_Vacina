@@ -1,4 +1,4 @@
-package model.repository;
+package model.repository.vacinacao;
 
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public interface BaseRepository<T> {
 	 * 
 	 * @return a novaEntidade salva, agora contendo um id.
 	 */
-	public T salvar(T novaEntidade);
+	public T salvarVacinacao(T novaEntidade);
 
 	/**
 	 * Exclui um determinado registro na tabela T, dado a sua chave primária.
@@ -34,7 +34,7 @@ public interface BaseRepository<T> {
 	 * @param id a chave primária da entidade.
 	 * @return true caso excluiu, false caso contrário.
 	 */
-	public boolean excluir(int id);
+	public boolean excluirVacinacao(int id);
 
 	/**
 	 * Altera um determinado registro na tabela T, dado o objeto escolhido para ser
@@ -43,7 +43,7 @@ public interface BaseRepository<T> {
 	 * @param entidade o objeto que terá o registro atualizado na tabela T.
 	 * @return true caso atualizou, false caso contrário.
 	 */
-	public boolean alterar(T entidade);
+	public boolean alterarVacinacao(T entidade);
 
 	/**
 	 * Retorna um objeto do tipo T, dado a sua chave primária.
@@ -51,12 +51,12 @@ public interface BaseRepository<T> {
 	 * @param id a chave primária do objeto/registro buscado
 	 * @return o objeto retornado pela consulta, ou null caso não exista registro com o id informado.
 	 */
-	public T consultarPorId(int id);
+	public T consultarVacinacaoPorId(int id);
 
 	/**
 	 * Retorna todos os registros da tabela T
 	 * 
 	 * @return uma lista de objetos do tipo T.
 	 */
-	public ArrayList<T> consultarTodos();
+	public ArrayList<T> consultarTodasAsVacinacoes();
 }

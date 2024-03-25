@@ -9,62 +9,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.entity.Pessoa;
+import model.entity.enums.Categoria;
+import model.repository.vacinacao.Banco;
 
-public class PessoaRepository implements BaseRepository<Pessoa> {
+public class PessoaRepository {
 
-	public boolean cpfExiste(String cpf) {
-
-		Connection conn = Banco.getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet resultado = null;
-		
-		// Define a consulta SQL para contar o número de registros que têm o mesmo CPF
-		// fornecido:
-		String query = "SELECT COUNT(*) FROM Pessoa WHERE cpf = ?";
-
-		try {
-			pstmt = conn.prepareStatement(query);
-			
-			// Define o valor do primeiro parâmetro da consulta SQL como o CPF fornecido:
-			pstmt.setString(1, cpf);
-			
-			// Executa a consulta e armazena o resultado no ResultSet:
-			resultado = pstmt.executeQuery();
-
-			// Verifica se há resultados e retorna true se houver ao menos um registro com o
-			// CPF:
-			if (resultado.next()) {
-				// Se a contagem for maior que 0, significa que o CPF já existe no banco:
-				return resultado.getInt(1) > 0;
-			}
-			
-		} catch (SQLException erro) {
-			System.out.println("Erro ao verificar existência do CPF");
-			System.out.println("Erro: " + erro.getMessage());
-		} finally {
-			Banco.closeResultSet(resultado);
-			Banco.closeStatement(pstmt);
-			Banco.closeConnection(conn);
-		}
-		return false;
-	}
-
-	public Pessoa salvar(Pessoa novaPessoa) {
+	public Pessoa salvarPessoa(Pessoa novaPessoa) {
 
 		if (cpfExiste(novaPessoa.getCpf())) {
 			System.out.println("CPF já utilizado.");
-			return null; // Ou lançar uma exceção
+			return null;
 		}
 
-		String query = "INSERT INTO Pessoa (nome, cpf, data_Nascimento, tipo, sexo) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO Pessoa (nome, cpf, data_Nascimento, tipo, sexo, id_pais) VALUES (?, ?, ?, ?, ?, ?)";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
 			pstmt.setString(1, novaPessoa.getNome());
 			pstmt.setString(2, novaPessoa.getCpf());
 			pstmt.setDate(3, Date.valueOf(novaPessoa.getDataNascimento()));
-			pstmt.setInt(4, novaPessoa.getTipo());
+			pstmt.setString(4, novaPessoa.getTipo().toString());
 			pstmt.setString(5, novaPessoa.getSexo());
+			pstmt.setInt(6, novaPessoa.getPais().getId());
 
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys();
@@ -82,21 +48,10 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		return novaPessoa;
 	}
 
-	@Override
-	public boolean alterar(Pessoa novaPessoa) {
-
-		// Obter a pessoa atual do banco de dados para comparação
-		Pessoa pessoaAtual = consultarPorId(novaPessoa.getId());
-
-		if (pessoaAtual != null && !pessoaAtual.getCpf().equals(novaPessoa.getCpf())) {
-			if (cpfExiste(novaPessoa.getCpf())) {
-				System.out.println("CPF já utilizado.");
-				return false; // Ou lançar uma exceção
-			}
-		}
+	public boolean alterarPessoa(Pessoa novaPessoa) {
 
 		boolean alterou = false;
-		String query = " UPDATE Pessoa SET nome = ?, cpf = ?, data_Nascimento = ?, tipo = ?, sexo = ? "
+		String query = " UPDATE Pessoa SET nome = ?, cpf = ?, data_Nascimento = ?, tipo = ?, sexo = ?, id_pais = ? "
 				+ " WHERE id=? ";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
@@ -105,9 +60,10 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 			pstmt.setString(1, novaPessoa.getNome());
 			pstmt.setString(2, novaPessoa.getCpf());
 			pstmt.setDate(3, Date.valueOf(novaPessoa.getDataNascimento()));
-			pstmt.setInt(4, novaPessoa.getTipo());
+			pstmt.setString(4, novaPessoa.getTipo().toString());
 			pstmt.setString(5, novaPessoa.getSexo());
-			pstmt.setInt(6, novaPessoa.getId());
+			pstmt.setInt(6, novaPessoa.getPais().getId());
+			pstmt.setInt(7, novaPessoa.getId());
 
 			alterou = pstmt.executeUpdate() > 0;
 
@@ -121,8 +77,7 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		return alterou;
 	}
 
-	@Override
-	public boolean excluir(int id) {
+	public boolean excluirPessoa(int id) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		boolean excluiu = false;
@@ -142,10 +97,12 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		return excluiu;
 	}
 
-	public ArrayList<Pessoa> consultarTodos() {
+	public ArrayList<Pessoa> consultarTodasAsPessoas() {
 		ArrayList<Pessoa> pessoas = new ArrayList<>();
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
+
+		PaisRepository paisRepository = new PaisRepository();
 
 		ResultSet resultado = null;
 		String query = "SELECT * FROM Pessoa";
@@ -157,8 +114,9 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 				pessoa.setNome(resultado.getString("nome"));
 				pessoa.setCpf(resultado.getString("cpf"));
 				pessoa.setDataNascimento(resultado.getDate("data_Nascimento").toLocalDate());
-				pessoa.setTipo(resultado.getInt("tipo"));
+				pessoa.setTipo(Categoria.valueOf(resultado.getString("tipo").toUpperCase()));
 				pessoa.setSexo(resultado.getString("sexo"));
+				pessoa.setPais(paisRepository.consultarPaisPorId(Integer.parseInt(resultado.getString("id_pais"))));
 				pessoas.add(pessoa);
 			}
 		} catch (SQLException erro) {
@@ -172,24 +130,27 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		return pessoas;
 	}
 
-	@Override
-	public Pessoa consultarPorId(int id) {
+	public Pessoa consultarPessoaPorId(int id) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 
+		PaisRepository paisRepository = new PaisRepository();
+
 		ResultSet resultado = null;
-		Pessoa pessoa = new Pessoa();
+		Pessoa pessoa = null;
 		String query = " SELECT * FROM Pessoa WHERE id = " + id;
 
 		try {
 			resultado = stmt.executeQuery(query);
 			if (resultado.next()) {
+				pessoa = new Pessoa();
 				pessoa.setId(Integer.parseInt(resultado.getString("id")));
 				pessoa.setNome(resultado.getString("nome"));
 				pessoa.setCpf(resultado.getString("cpf"));
 				pessoa.setDataNascimento(resultado.getDate("data_Nascimento").toLocalDate());
-				pessoa.setTipo(resultado.getInt("tipo"));
+				pessoa.setTipo(Categoria.valueOf(resultado.getString("tipo").toUpperCase()));
 				pessoa.setSexo(resultado.getString("sexo"));
+				pessoa.setPais(paisRepository.consultarPaisPorId(Integer.parseInt(resultado.getString("id_pais"))));
 				if (resultado.getDate("data_Nascimento") != null) {
 					pessoa.setDataNascimento(resultado.getDate("data_Nascimento").toLocalDate());
 				}
@@ -204,5 +165,34 @@ public class PessoaRepository implements BaseRepository<Pessoa> {
 		}
 		return pessoa;
 	}
+	
+	public boolean cpfExiste(String cpf) {
+
+		Connection conn = Banco.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet resultado = null;
+		String query = "SELECT COUNT(*) FROM Pessoa WHERE cpf = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cpf);
+			resultado = pstmt.executeQuery();
+
+			if (resultado.next()) {
+				return resultado.getInt(1) > 0;
+			}
+
+		} catch (SQLException erro) {
+			System.out.println("Erro ao verificar existência do CPF");
+			System.out.println("Erro: " + erro.getMessage());
+
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(pstmt);
+			Banco.closeConnection(conn);
+		}
+		return false;
+	}
+
 
 }

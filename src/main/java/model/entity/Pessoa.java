@@ -3,17 +3,24 @@ package model.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import model.entity.enums.Categoria;
+
 public class Pessoa {
-	
+
 	private int id;
 	private String nome;
 	private String cpf;
-	private int tipo;
+	private Categoria tipo;
 	private String sexo;
 	private LocalDate dataNascimento;
+	private Pais pais;
 	private List<Vacinacao> vacinacoes;
-	
-	public Pessoa(int id, String nome, String cpf, int tipo, String sexo, LocalDate dataNascimento,
+
+	public Pessoa() {
+		super();
+	}
+
+	public Pessoa(int id, String nome, String cpf, Categoria tipo, String sexo, LocalDate dataNascimento, Pais pais,
 			List<Vacinacao> vacinacoes) {
 		super();
 		this.id = id;
@@ -22,11 +29,8 @@ public class Pessoa {
 		this.tipo = tipo;
 		this.sexo = sexo;
 		this.dataNascimento = dataNascimento;
+		this.pais = pais;
 		this.vacinacoes = vacinacoes;
-	}
-
-	public Pessoa() {
-		super();
 	}
 
 	public int getId() {
@@ -53,11 +57,11 @@ public class Pessoa {
 		this.cpf = cpf;
 	}
 
-	public int getTipo() {
+	public Categoria getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(int tipo) {
+	public void setTipo(Categoria tipo) {
 		this.tipo = tipo;
 	}
 
@@ -77,6 +81,14 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
 	public List<Vacinacao> getVacinacoes() {
 		return vacinacoes;
 	}
@@ -87,6 +99,5 @@ public class Pessoa {
 	
 	
 	
+
 }
-
-

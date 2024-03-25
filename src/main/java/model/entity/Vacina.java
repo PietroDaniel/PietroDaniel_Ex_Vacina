@@ -2,21 +2,24 @@ package model.entity;
 
 import java.time.LocalDate;
 
+
+import model.entity.enums.Estagio;
+
 public class Vacina {
 	
 	private int id;
 	private String nome;
-	private String paisOrigem;
+	private Pais pais;
 	private Pessoa pesquisadorResponsavel;
-	private int estagio;
+	private Estagio estagio;
 	private LocalDate dataInicioPesquisa;
 	
-	public Vacina(int id, String nome, String paisOrigem, Pessoa pesquisadorResponsavel, int estagio,
+	public Vacina(int id, String nome, Pais pais, Pessoa pesquisadorResponsavel, Estagio estagio,
 			LocalDate dataInicioPesquisa) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.paisOrigem = paisOrigem;
+		this.pais = pais;
 		this.pesquisadorResponsavel = pesquisadorResponsavel;
 		this.estagio = estagio;
 		this.dataInicioPesquisa = dataInicioPesquisa;
@@ -24,6 +27,7 @@ public class Vacina {
 
 	public Vacina() {
 		super();
+		
 	}
 
 	public int getId() {
@@ -42,12 +46,12 @@ public class Vacina {
 		this.nome = nome;
 	}
 
-	public String getPaisOrigem() {
-		return paisOrigem;
+	public Pais getPais() {
+		return pais;
 	}
 
-	public void setPaisOrigem(String paisOrigem) {
-		this.paisOrigem = paisOrigem;
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	public Pessoa getPesquisadorResponsavel() {
@@ -58,11 +62,11 @@ public class Vacina {
 		this.pesquisadorResponsavel = pesquisadorResponsavel;
 	}
 
-	public int getEstagio() {
+	public Estagio getEstagio() {
 		return estagio;
 	}
 
-	public void setEstagio(int estagio) {
+	public void setEstagio(Estagio estagio) {
 		this.estagio = estagio;
 	}
 
@@ -74,5 +78,4 @@ public class Vacina {
 		this.dataInicioPesquisa = dataInicioPesquisa;
 	}
 	
-
 }

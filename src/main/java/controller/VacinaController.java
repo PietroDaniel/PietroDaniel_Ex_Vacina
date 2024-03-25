@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import exception.VacinaException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -12,7 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.entity.Vacina;
-import model.service.VacinaService;
+import service.VacinaService;
 
 @Path("/vacina")
 public class VacinaController {
@@ -21,7 +22,7 @@ public class VacinaController {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public boolean alterarVacina(Vacina novaVacina){
 		 return service.alterarVacina(novaVacina);
 	}
@@ -37,7 +38,7 @@ public class VacinaController {
 	@Path("/salvarVacina")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Vacina cadastrar(Vacina novaVacina) {
+	public Vacina cadastrar(Vacina novaVacina) throws VacinaException {
 		return service.salvarVacina(novaVacina);
 	}
 
@@ -52,5 +53,12 @@ public class VacinaController {
 	public List<Vacina> consultarTodasAsVacinas() {
 		return service.consultarTodasAsVacinas();
 	}
+	
+	@GET
+    @Path("/ehPesquisador/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean ehPesquisador(@PathParam("id") int id) {
+        return service.ehPesquisador(id);
+    }
 	
 }

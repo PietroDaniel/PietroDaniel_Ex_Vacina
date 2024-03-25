@@ -1,4 +1,4 @@
-package model.repository;
+package model.repository.vacinacao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

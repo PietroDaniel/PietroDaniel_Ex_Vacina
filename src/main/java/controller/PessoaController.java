@@ -13,20 +13,12 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.entity.Pessoa;
-import model.service.PessoaService;
+import service.PessoaService;
 
 @Path("/pessoa")
-
 public class PessoaController {
 
 	private PessoaService service = new PessoaService();
-
-	@GET
-	@Path("/cpfExiste/{cpf}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public boolean cpfExiste(@PathParam("cpf") String cpf) throws PessoaException {
-		return service.cpfExiste(cpf);
-	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -37,7 +29,7 @@ public class PessoaController {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public boolean alterar(Pessoa PessoaEditado) throws PessoaException {
 		return service.alterar(PessoaEditado);
 	}
