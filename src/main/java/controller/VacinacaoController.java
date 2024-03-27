@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import exception.VacinacaoException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -23,7 +24,7 @@ public class VacinacaoController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Vacinacao salvarVacinacao(Vacinacao novaVacinacao) {
+	public Vacinacao salvarVacinacao(Vacinacao novaVacinacao) throws VacinacaoException {
 	    return vacinacaoService.salvarVacinacao(novaVacinacao);
 	}
 	

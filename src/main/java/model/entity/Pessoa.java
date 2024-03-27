@@ -1,12 +1,12 @@
 package model.entity;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 import model.entity.enums.Categoria;
 
 public class Pessoa {
-
+	
 	private int id;
 	private String nome;
 	private String cpf;
@@ -14,14 +14,14 @@ public class Pessoa {
 	private String sexo;
 	private LocalDate dataNascimento;
 	private Pais pais;
-	private List<Vacinacao> vacinacoes;
+	private ArrayList<Vacinacao> vacinacoes;
 
 	public Pessoa() {
 		super();
 	}
 
 	public Pessoa(int id, String nome, String cpf, Categoria tipo, String sexo, LocalDate dataNascimento, Pais pais,
-			List<Vacinacao> vacinacoes) {
+			ArrayList<Vacinacao> vacinacoes) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -89,15 +89,12 @@ public class Pessoa {
 		this.pais = pais;
 	}
 
-	public List<Vacinacao> getVacinacoes() {
+	public ArrayList<Vacinacao> getVacinacoes() {
 		return vacinacoes;
 	}
 
-	public void setVacinacoes(List<Vacinacao> vacinacoes) {
+	public void setVacinacoes(ArrayList<Vacinacao> vacinacoes) {
 		this.vacinacoes = vacinacoes;
 	}
-	
-	
-	
 
 }

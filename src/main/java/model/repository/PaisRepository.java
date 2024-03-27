@@ -5,19 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.entity.Pais;
-import model.entity.Pessoa;
-import model.entity.enums.Categoria;
 import model.repository.vacinacao.Banco;
 
 public class PaisRepository {
-	
+
 	public Pais cadastrarPais(Pais novoPais) {
 
-		String query = "INSERT INTO pais (nome, sigla) VALUES (?, ?)";
+		String query = " INSERT INTO pais (nome, sigla) VALUES (?, ?) ";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
+		
 		try {
 			pstmt.setString(1, novoPais.getNome());
 			pstmt.setString(2, novoPais.getSigla());
@@ -37,8 +37,9 @@ public class PaisRepository {
 		}
 		return novoPais;
 	}
-	
+
 	public Pais consultarPaisPorId(int id) {
+
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 
@@ -53,10 +54,10 @@ public class PaisRepository {
 				pais.setId(Integer.parseInt(resultado.getString("id")));
 				pais.setNome(resultado.getString("nome"));
 				pais.setSigla(resultado.getString("sigla"));
-				}
-			
+			}
+
 		} catch (SQLException erro) {
-			System.out.println("Erro ao executar consultar pais com id (" + id + ")");
+			System.out.println("Erro ao executar consultar país com id (" + id + ")");
 			System.out.println("Erro: " + erro.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
@@ -64,6 +65,21 @@ public class PaisRepository {
 			Banco.closeConnection(conn);
 		}
 		return pais;
+	}
+
+	public boolean excluirPais(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean alterarPais(Pais entidade) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public ArrayList<Pais> consultarTodosOsPaises() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

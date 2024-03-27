@@ -54,11 +54,4 @@ public class VacinaController {
 		return service.consultarTodasAsVacinas();
 	}
 	
-	@GET
-    @Path("/ehPesquisador/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean ehPesquisador(@PathParam("id") int id) {
-        return service.ehPesquisador(id);
-    }
-	
 }

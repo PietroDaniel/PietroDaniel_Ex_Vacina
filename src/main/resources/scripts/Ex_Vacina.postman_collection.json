@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "3cbd361a-2ea8-43b1-b50a-790f211f4afd",
+		"name": "Ex_Vacina",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28786422"
+	},
+	"item": [
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Salvar Pessoa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Tatiana Sakuma\",\r\n    \"cpf\": \"66666666666\",\r\n    \"dataNascimento\": \"1985-03-01\",\r\n    \"tipo\": \"PESQUISADOR\",\r\n    \"sexo\": \"F\",\r\n    \"pais\" : {\r\n        \"id\" : 24 \r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pessoa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Pessoa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 5,\r\n    \"nome\": \"Pietro Ferrazzo Daniel\",\r\n    \"cpf\": \"10837573939\",\r\n    \"dataNascimento\": \"1997-04-18\",\r\n    \"tipo\": \"VOLUNTARIO\",\r\n    \"sexo\": \"M\",\r\n    \"pais\" : {\r\n        \"id\" : 24 \r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pessoa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Pessoa por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pessoa/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pessoa",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar todas as pessoas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pessoa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Pessoa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pessoa/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pessoa",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vacina",
+			"item": [
+				{
+					"name": "Salvar Vacina",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"VicVac\",\r\n  \"estagio\": \"TESTE\",\r\n  \"dataInicioPesquisa\": \"2024-03-03\",\r\n  \"pais\": {\r\n    \"id\": 24,\r\n    \"nome\": \"Brasil\",\r\n    \"sigla\": \"BR\"\r\n  },\r\n  \"pesquisadorResponsavel\": {\r\n    \"id\": 7,\r\n    \"nome\": \"Victoria Galvão\",\r\n    \"cpf\": \"66666666666\",\r\n    \"dataNascimento\": \"2006-06-06\",\r\n    \"tipo\": \"PESQUISADOR\",\r\n    \"sexo\": \"F\",\r\n    \"pais\": {\r\n      \"id\": 24\r\n    }\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacina/salvarVacina",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacina",
+								"salvarVacina"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Vacina",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":16,\r\n  \"nome\": \"VictoriaVac\",\r\n  \"estagio\": \"TESTE\",\r\n  \"dataInicioPesquisa\": \"2024-03-03\",\r\n  \"pais\": {\r\n    \"id\": 24,\r\n    \"nome\": \"Brasil\",\r\n    \"sigla\": \"BR\"\r\n  },\r\n  \"pesquisadorResponsavel\": {\r\n    \"id\": 7,\r\n    \"nome\": \"Victoria Galvão\",\r\n    \"cpf\": \"66666666666\",\r\n    \"dataNascimento\": \"2006-06-06\",\r\n    \"tipo\": \"PESQUISADOR\",\r\n    \"sexo\": \"F\",\r\n    \"pais\": {\r\n      \"id\": 24\r\n    }\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacina",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacina"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Vacina Por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacina/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacina",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar todas as Vacinas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacina",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacina"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Vacina",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacina/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacina",
+								"16"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pais",
+			"item": [
+				{
+					"name": "Cadastrar Pais",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"nome\": \"CHIPRE\",\r\n        \"sigla\": \"CH\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pais",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pais"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Pais por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/pais/196",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"pais",
+								"196"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vacinacao",
+			"item": [
+				{
+					"name": "Salvar Vacincao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPessoa\": 3,\r\n   \"vacina\": {\r\n   \"id\": 2\r\n    }\r\n,\r\n\"dataAplicacao\":\"2024-02-25\",\r\n\"avaliacao\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacinacao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacinacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Vacinacao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":3,\r\n    \"idPessoa\": 3,\r\n    \"vacina\": {\"id\": 2},\r\n    \"dataAplicacao\":\"2024-01-01\",\r\n    \"avaliacao\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacinacao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacinacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Vacinacao por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacinacao/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacinacao",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar todas as vacinacoes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacinacao/todas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacinacao",
+								"todas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Vacinacao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/PietroDaniel_Ex_Vacina/rest/vacinacao/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PietroDaniel_Ex_Vacina",
+								"rest",
+								"vacinacao",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
