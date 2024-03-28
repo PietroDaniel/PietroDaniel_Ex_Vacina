@@ -247,19 +247,17 @@ VALUES('Manoel Francisco dos Santos', '77711122277', '1933-10-28', 'PESQUISADOR'
 INSERT INTO pessoa (nome, cpf, data_Nascimento, tipo, sexo, id_pais)
 VALUES('Edson Arantes do Nascimento', '01012301010', '1940-10-23', 'PESQUISADOR', 'M', (SELECT id FROM pais WHERE sigla = 'BR'));
 
--- Inserts para o estágio TESTE
+
 INSERT INTO vacina (nome, estagio, data_inicio, id_pesquisador, id_pais)
 VALUES
 ('Vacina Alvorada', 'TESTE', '2023-01-10', (SELECT id FROM pessoa WHERE cpf = '77711122277'), (SELECT id FROM pais WHERE sigla = 'BR')),
 ('Vacina Pioneira', 'TESTE', '2023-02-05', (SELECT id FROM pessoa WHERE cpf = '01012301010'), (SELECT id FROM pais WHERE sigla = 'BR'));
 
--- Inserts para o estágio INICIAL
 INSERT INTO vacina (nome, estagio, data_inicio, id_pesquisador, id_pais)
 VALUES
 ('Vacina Genesis', 'INICIAL', '2023-03-15', (SELECT id FROM pessoa WHERE cpf = '77711122277'), (SELECT id FROM pais WHERE sigla = 'BR')),
 ('Vacina Aurora', 'INICIAL', '2023-04-20', (SELECT id FROM pessoa WHERE cpf = '01012301010'), (SELECT id FROM pais WHERE sigla = 'BR'));
 
--- Inserts para o estágio APLICACAO_EM_MASSA
 INSERT INTO vacina (nome, estagio, data_inicio, id_pesquisador, id_pais)
 VALUES
 ('Vacina CoberturaTotal', 'APLICACAO_EM_MASSA', '2023-07-30', (SELECT id FROM pessoa WHERE cpf = '77711122277'), (SELECT id FROM pais WHERE sigla = 'BR')),
@@ -274,3 +272,5 @@ select * from aplicacao_vacina;
 
 INSERT INTO aplicacao_vacina (id_pessoa, id_vacina, data_aplicacao, avaliacao)
 VALUES (3, (SELECT id FROM vacina WHERE nome = 'Vacina Alvorada'), CURDATE(), 5);
+
+ALTER TABLE vacina ADD COLUMN media_avaliacao DOUBLE DEFAULT 0;

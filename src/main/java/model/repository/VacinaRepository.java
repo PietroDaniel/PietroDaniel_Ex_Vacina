@@ -24,7 +24,7 @@ public class VacinaRepository {
 		this.paisRepository = new PaisRepository();
 	}
 	
-	public boolean ehPesquisador(int id) {
+	/*public boolean ehPesquisador(int id) {
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet resultado = null;
@@ -50,15 +50,15 @@ public class VacinaRepository {
 		}
 
 		return ehPesquisador;
-	}
+	}*/
 
 	public Vacina salvarVacina(Vacina novaVacina) {
 
-		if (!ehPesquisador(novaVacina.getPesquisadorResponsavel().getId())) {
+		/*if (!ehPesquisador(novaVacina.getPesquisadorResponsavel().getId())) {
 			
 			System.out.println("Pesquisador não encontrado!");
 			return null;
-		}
+		}*/
 
 		Pais pais = paisRepository.consultarPaisPorId(novaVacina.getPais().getId());
 		
@@ -97,23 +97,30 @@ public class VacinaRepository {
 	}
 
 	public boolean excluirVacina(int id) {
-		Connection conn = Banco.getConnection();
-		Statement stmt = Banco.getStatement(conn);
-		boolean excluiu = false;
-		String query = "DELETE FROM vacina WHERE id =" + id;
-		try {
-			if (stmt.executeUpdate(query) == 1) {
-				excluiu = true;
-			}
-		} catch (SQLException erro) {
-			System.out.println("Erro ao excluir Vacina");
-			System.out.println("Erro: " + erro.getMessage());
-		} finally {
-			Banco.closeStatement(stmt);
-			Banco.closeConnection(conn);
-		}
+	    Connection conn = Banco.getConnection();
+	    String query = "SELECT COUNT(*) FROM aplicacao_vacina WHERE id_vacina = ?";
+	    PreparedStatement pstmt = Banco.getPreparedStatement(conn, query);
 
-		return excluiu;
+	    try {
+	        pstmt.setInt(1, id);
+	        ResultSet resultado = pstmt.executeQuery();
+	        if (resultado.next() && resultado.getInt(1) > 0) {
+	            System.out.println("Vacina não pode ser excluída, pois já foi aplicada em pelo menos uma pessoa.");
+	            return false;
+	        }
+
+	        String queryExclusao = "DELETE FROM vacina WHERE id = ?";
+	        PreparedStatement pstmtExclusao = Banco.getPreparedStatement(conn, queryExclusao);
+	        pstmtExclusao.setInt(1, id);
+	        int excluiu = pstmtExclusao.executeUpdate();
+	        return excluiu > 0;
+	    } catch (SQLException erro) {
+	        System.out.println("Erro ao excluir Vacina");
+	        System.out.println("Erro: " + erro.getMessage());
+	        return false;
+	    } finally {
+	        Banco.closeConnection(conn);
+	    }
 	}
 
 	public ArrayList<Vacina> consultarTodasAsVacinas() {

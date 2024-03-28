@@ -361,13 +361,13 @@
 			"name": "Vacinacao",
 			"item": [
 				{
-					"name": "Salvar Vacincao",
+					"name": "Salvar Vacinacao",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idPessoa\": 3,\r\n   \"vacina\": {\r\n   \"id\": 2\r\n    }\r\n,\r\n\"dataAplicacao\":\"2024-02-25\",\r\n\"avaliacao\": 5\r\n}",
+							"raw": "{\r\n    \"idPessoa\": 1,\r\n    \"idVacina\": 1,\r\n    \"dataAplicacao\": \"2024-03-28\",\r\n    \"avaliacao\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -14,8 +14,6 @@ import model.repository.vacinacao.Banco;
 
 public class PessoaRepository {
 
-	// implements BaseRepository<Pessoa>
-	
 	public Pessoa salvarPessoa(Pessoa novaPessoa) {
 
 		if (cpfExiste(novaPessoa.getCpf())) {
@@ -52,23 +50,32 @@ public class PessoaRepository {
 	}
 
 	public boolean excluirPessoa(int id) {
-		Connection conn = Banco.getConnection();
-		Statement stmt = Banco.getStatement(conn);
-		boolean excluiu = false;
-		String query = "DELETE FROM pessoa WHERE id =" + id;
-		try {
-			if (stmt.executeUpdate(query) == 1) {
-				excluiu = true;
-			}
-		} catch (SQLException erro) {
-			System.out.println("Erro ao excluir Pessoa");
-			System.out.println("Erro: " + erro.getMessage());
-		} finally {
-			Banco.closeStatement(stmt);
-			Banco.closeConnection(conn);
-		}
+		
+	    Connection conn = Banco.getConnection();
+	    String query = "SELECT COUNT(*) FROM aplicacao_vacina WHERE id_pessoa = ?";
+	    PreparedStatement pstmt = Banco.getPreparedStatement(conn, query);
 
-		return excluiu;
+	    try {
+	        pstmt.setInt(1, id);
+	        ResultSet resultado = pstmt.executeQuery();
+	        if (resultado.next() && resultado.getInt(1) > 0) {
+	            System.out.println("Pessoa não pode ser excluída, pois já possui registro de vacinação.");
+	            return false;
+	        }
+
+	        String queryExclusao = "DELETE FROM pessoa WHERE id = ?";
+	        PreparedStatement pstmtExclusao = Banco.getPreparedStatement(conn, queryExclusao);
+	        pstmtExclusao.setInt(1, id);
+	        int excluiu = pstmtExclusao.executeUpdate();
+	        return excluiu > 0;
+	        
+	    } catch (SQLException erro) {
+	        System.out.println("Erro ao excluir Pessoa");
+	        System.out.println("Erro: " + erro.getMessage());
+	        return false;
+	    } finally {
+	        Banco.closeConnection(conn);
+	    }
 	}
 
 	public boolean alterarPessoa(Pessoa novaPessoa) {
@@ -123,8 +130,8 @@ public class PessoaRepository {
 				PaisRepository paisRepository = new PaisRepository();
 				pessoa.setPais(paisRepository.consultarPaisPorId(resultado.getInt("id_pais")));
 
-				VacinacaoRepository vacinacaoRepository = new VacinacaoRepository();
-				pessoa.setVacinacoes(vacinacaoRepository.consultarPorIdPessoa(pessoa.getId()));
+				//VacinacaoRepository vacinacaoRepository = new VacinacaoRepository();
+				//pessoa.setVacinacoes(vacinacaoRepository.consultarPorIdPessoa(pessoa.getId()));
 
 			}
 		} catch (SQLException erro) {

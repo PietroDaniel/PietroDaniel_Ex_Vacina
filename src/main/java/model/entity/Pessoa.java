@@ -14,7 +14,7 @@ public class Pessoa {
 	private String sexo;
 	private LocalDate dataNascimento;
 	private Pais pais;
-	private ArrayList<Vacinacao> vacinacoes;
+	//private ArrayList<Vacinacao> vacinacoes;
 
 	public Pessoa() {
 		super();
@@ -30,7 +30,6 @@ public class Pessoa {
 		this.sexo = sexo;
 		this.dataNascimento = dataNascimento;
 		this.pais = pais;
-		this.vacinacoes = vacinacoes;
 	}
 
 	public int getId() {
@@ -87,14 +86,6 @@ public class Pessoa {
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
-	}
-
-	public ArrayList<Vacinacao> getVacinacoes() {
-		return vacinacoes;
-	}
-
-	public void setVacinacoes(ArrayList<Vacinacao> vacinacoes) {
-		this.vacinacoes = vacinacoes;
 	}
 
 }

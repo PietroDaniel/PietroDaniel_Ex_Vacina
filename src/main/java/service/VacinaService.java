@@ -30,9 +30,9 @@ public class VacinaService {
 		return repository.alterarVacina(novaVacina);
 	}
     
-    public boolean ehPesquisador(int id) {
+    /*public boolean ehPesquisador(int id) {
         return repository.ehPesquisador(id);
-    }
+    }*/
     
     
 }
